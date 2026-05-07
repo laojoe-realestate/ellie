@@ -18,11 +18,11 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     setIsSubmitting(true);
 
     const formData = {
-      fullName: (e.currentTarget.elements.namedItem('fullName') as HTMLInputElement).value,
-      emailAddress: (e.currentTarget.elements.namedItem('emailAddress') as HTMLInputElement).value,
-      phoneNumber: '+1' + (e.currentTarget.elements.namedItem('phoneNumber') as HTMLInputElement).value,
-      listing: (e.currentTarget.elements.namedItem('listing') as HTMLSelectElement).value,
-      message: (e.currentTarget.elements.namedItem('message') as HTMLTextAreaElement).value,
+      fullName: (e.currentTarget.elements.namedItem('fullName') as HTMLInputElement)?.value || '',
+      emailAddress: (e.currentTarget.elements.namedItem('emailAddress') as HTMLInputElement)?.value || '',
+      phoneNumber: '+1' + (e.currentTarget.elements.namedItem('phoneNumber') as HTMLInputElement)?.value || '',
+      listing: (e.currentTarget.elements.namedItem('listing') as HTMLSelectElement)?.value || '',
+      message: (e.currentTarget.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
     };
 
     try {
