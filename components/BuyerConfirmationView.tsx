@@ -22,12 +22,8 @@ const BuyerConfirmationView = ({
 
   useEffect(() => {
     const fadeIn = setTimeout(() => setShowContent(true), 100);
-    const advance = setTimeout(() => onComplete(), 7000);
-    return () => {
-      clearTimeout(fadeIn);
-      clearTimeout(advance);
-    };
-  }, [onComplete]);
+    return () => clearTimeout(fadeIn);
+  }, []);
 
   const now = new Date();
   const timeString = now.toLocaleTimeString('en-US', {
@@ -65,7 +61,6 @@ const BuyerConfirmationView = ({
         <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8">
           {/* Email mockup — Gmail style */}
           <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
-            {/* Gmail header bar */}
             <div className="bg-[#f6f8fc] px-5 py-3 border-b border-gray-200 flex items-center gap-3">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
@@ -74,7 +69,6 @@ const BuyerConfirmationView = ({
               </div>
               <div className="text-xs text-gray-500 font-medium ml-2">Inbox</div>
             </div>
-            {/* Email content */}
             <div className="p-6">
               <div className="flex items-start gap-4 mb-5 pb-5 border-b border-gray-100">
                 <div className="w-12 h-12 rounded-full bg-[#FAC332] flex items-center justify-center text-black font-bold text-lg shrink-0">
@@ -103,8 +97,7 @@ const BuyerConfirmationView = ({
           <div className="flex justify-center">
             <div className="bg-black rounded-[40px] p-3 shadow-2xl w-full max-w-[340px]">
               <div className="bg-white rounded-[32px] overflow-hidden">
-                {/* Phone notch + status bar */}
-                <div className="bg-white pt-3 pb-2 px-6 flex items-center justify-between text-xs font-semibold text-black">
+                <div className="bg-white pt-3 pb-2 px-6 flex items-center justify-between text-xs font-semibold text-black relative">
                   <span>{timeString}</span>
                   <div className="absolute left-1/2 -translate-x-1/2 top-3 w-24 h-5 bg-black rounded-full"></div>
                   <div className="flex items-center gap-1">
@@ -113,7 +106,6 @@ const BuyerConfirmationView = ({
                     <span>🔋</span>
                   </div>
                 </div>
-                {/* Header */}
                 <div className="bg-[#f6f6f6] border-b border-gray-200 py-3 px-4 text-center">
                   <div className="w-10 h-10 rounded-full bg-[#FAC332] flex items-center justify-center text-black font-bold mx-auto mb-1">
                     E
@@ -121,7 +113,6 @@ const BuyerConfirmationView = ({
                   <div className="text-sm font-semibold text-black">Ellie Mohseni</div>
                   <div className="text-xs text-gray-500">Pinnacle Realty</div>
                 </div>
-                {/* Messages */}
                 <div className="bg-white px-4 py-6 min-h-[280px]">
                   <div className="text-center text-xs text-gray-400 mb-4">{timeString}</div>
                   <div className="flex justify-start mb-2">
@@ -130,7 +121,6 @@ const BuyerConfirmationView = ({
                     </div>
                   </div>
                 </div>
-                {/* Bottom bar */}
                 <div className="bg-[#f6f6f6] py-2 px-4 flex items-center gap-2 border-t border-gray-200">
                   <div className="flex-1 bg-white rounded-full px-3 py-1.5 text-xs text-gray-400 border border-gray-200">
                     iMessage
@@ -141,15 +131,33 @@ const BuyerConfirmationView = ({
           </div>
         </div>
 
-        {/* Bottom progress indicator */}
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500 mb-3">Now showing what you receive on your end...</p>
-          <div className="flex items-center justify-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#FAC332] animate-pulse"></div>
-            <div className="w-2 h-2 rounded-full bg-[#FAC332] animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-            <div className="w-2 h-2 rounded-full bg-[#FAC332] animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-          </div>
+        {/* CTA Button */}
+        <div className="mt-12 flex flex-col items-center">
+          <button
+            onClick={onComplete}
+            className="group bg-[#FAC332] text-black font-bold px-10 py-5 rounded-xl hover:bg-[#e5b22d] transition-all shadow-lg text-base hover:scale-[1.03] flex items-center gap-3 animate-pulse-subtle"
+            style={{
+              animation: 'pulse-glow 2s ease-in-out infinite',
+            }}
+          >
+            <span>Show me what I receive</span>
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </button>
+          <p className="text-xs text-gray-500 mt-4">
+            Click to see the agent side of the same lead
+          </p>
         </div>
+
+        <style jsx>{`
+          @keyframes pulse-glow {
+            0%, 100% {
+              box-shadow: 0 10px 25px -5px rgba(250, 195, 50, 0.4), 0 4px 6px -2px rgba(250, 195, 50, 0.1);
+            }
+            50% {
+              box-shadow: 0 20px 40px -5px rgba(250, 195, 50, 0.7), 0 8px 12px -2px rgba(250, 195, 50, 0.3);
+            }
+          }
+        `}</style>
       </div>
     </div>
   );
